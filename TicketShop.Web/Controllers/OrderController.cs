@@ -23,6 +23,7 @@ namespace TicketShop.Web.Controllers {
             _orderService = orderService;
             _userManager = userManager;
             _userRepository = userRepository;
+            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
         }
         [HttpGet]
         public IActionResult Index() {
@@ -83,7 +84,7 @@ namespace TicketShop.Web.Controllers {
 
 
             document.Content.Replace("{{OrderNumber}}", result.Id.ToString());
-            document.Content.Replace("{{Username}}", result.User.UserName);
+            document.Content.Replace("{{UserName}}", result.User.UserName);
 
             StringBuilder sb = new StringBuilder();
 
@@ -95,8 +96,8 @@ namespace TicketShop.Web.Controllers {
             }
 
 
-            document.Content.Replace("{{Ticket}}", sb.ToString());
-            document.Content.Replace("{{Price}}", totalPrice.ToString() + "$");
+            document.Content.Replace("{{TicketList}}", sb.ToString());
+            document.Content.Replace("{{TotalPrice}}", totalPrice.ToString() + "$");
 
 
             var stream = new MemoryStream();
