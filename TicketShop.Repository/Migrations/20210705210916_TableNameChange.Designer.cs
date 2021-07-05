@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketShop.Web.Data;
 
 namespace TicketShop.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210705210916_TableNameChange")]
+    partial class TableNameChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -413,13 +415,13 @@ namespace TicketShop.Web.Data.Migrations
 
             modelBuilder.Entity("TicketShop.Domain.DomainModels.TicketInOrder", b =>
                 {
-                    b.HasOne("TicketShop.Domain.DomainModels.Order", "UserOrder")
+                    b.HasOne("TicketShop.Domain.DomainModels.Ticket", "OrderedTicket")
                         .WithMany("TicketsInOrder")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TicketShop.Domain.DomainModels.Ticket", "OrderedTicket")
+                    b.HasOne("TicketShop.Domain.DomainModels.Order", "UserOrder")
                         .WithMany("TicketsInOrder")
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)

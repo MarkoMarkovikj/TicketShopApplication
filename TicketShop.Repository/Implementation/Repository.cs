@@ -33,6 +33,13 @@ namespace TicketShop.Repository.Implementation {
             return entities.AsEnumerable();
         }
 
+        public List<T> GetAllByGenre(string genre) {
+            return entities
+                .Select(z => z)
+                .Where(z => (z as Ticket).MovieGenre == genre)
+                .ToList();
+        }
+
         public void Insert(T entity) {
             if (entity == null) {
                 throw new ArgumentNullException("entity");

@@ -13,5 +13,6 @@ namespace TicketShop.Service.Interface {
             AddToShoppingCartDTO GetShoppingCartInfo(Guid? id);
             void DeleteTicket(Guid id);
             bool AddToShoppingCart(AddToShoppingCartDTO item, string userId);
+            List<Ticket> GetAllTicketsByGenre(string movieGenre);
     }
 }

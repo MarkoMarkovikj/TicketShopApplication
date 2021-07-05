@@ -56,6 +56,10 @@ namespace TicketShop.Service.Implementation {
             return this._ticketRepository.GetAll().ToList();
         }
 
+        public List<Ticket> GetAllTicketsByGenre(string genre) {
+            return _ticketRepository.GetAllByGenre(genre).ToList();
+        }
+
         public Ticket GetDetailsForTicket(Guid? id) {
             return this._ticketRepository.Get(id);
         }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -144,6 +146,43 @@ namespace TicketShop.Web.Controllers {
             }
 
             return View(item);
+        }
+
+
+        [HttpPost]
+        public FileContentResult ExportAllTickets(string movieGenre) {
+            string fileName = "Tickets.xlsx";
+            string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+            using (var workbook = new XLWorkbook()) {
+                IXLWorksheet worksheet = workbook.Worksheets.Add("All Tickets");
+
+                worksheet.Cell(1, 1).Value = "Ticket Id";
+                worksheet.Cell(1, 2).Value = "Movie";
+                worksheet.Cell(1, 3).Value = "Date and Time";
+                worksheet.Cell(1, 4).Value = "Price";
+                worksheet.Cell(1, 5).Value = "Movie Genre";
+
+
+                var result = _ticketService.GetAllTicketsByGenre(movieGenre);
+
+                for (int i = 1; i <= result.Count(); i++) {
+                    var item = result[i - 1];
+
+                    worksheet.Cell(i + 1, 1).Value = item.Id.ToString();
+                    worksheet.Cell(i + 1, 2).Value = item.MovieName;
+                    worksheet.Cell(i + 1, 3).Value = item.ValidTo.ToString();
+                    worksheet.Cell(i + 1, 4).Value = item.Price + "$";
+                    worksheet.Cell(i + 1, 5).Value = movieGenre;
+                }
+
+                using (var stream = new MemoryStream()) {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(content, contentType, fileName);
+                }
+
+            }
         }
     }
 }

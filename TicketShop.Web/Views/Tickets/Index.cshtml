@@ -24,6 +24,7 @@
                 <img src="@ticket.Image" alt="Image for movie" style="height: 50%" class="card-img-top" />
                 <div class="card-body">
                     <h3 class="card-title">@ticket.MovieName</h3>
+                    <h4 class="card-title">@ticket.ValidTo.ToString()</h4>
                     <p class="card-text text-black-50">@ticket.MovieGenre</p>
 
                     <h5>Price: @ticket.Price</h5>

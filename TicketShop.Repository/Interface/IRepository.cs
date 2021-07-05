@@ -10,5 +10,6 @@ namespace TicketShop.Repository.Interface {
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
+        List<T> GetAllByGenre(string genre);
     }
 }

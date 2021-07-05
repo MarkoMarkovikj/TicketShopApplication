@@ -39,6 +39,7 @@ namespace TicketShop.Web {
 
             services.AddTransient(typeof(ITicketService), typeof(TicketService));
             services.AddTransient(typeof(IShoppingCartService), typeof(ShoppingCartService));
+            services.AddTransient(typeof(IOrderService), typeof(OrderService));
 
 
             services.AddControllersWithViews();

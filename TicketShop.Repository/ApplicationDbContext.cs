@@ -15,7 +15,7 @@ namespace TicketShop.Web.Data {
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<TicketInShoppingCart> TicketInShoppingCarts { get; set; }
-        public virtual DbSet<TicketInOrder> ProductInOrders { get; set; }
+        public virtual DbSet<TicketInOrder> TicketsInOrder { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         protected override void OnModelCreating(ModelBuilder builder) {
             base.OnModelCreating(builder);
@@ -46,12 +46,12 @@ namespace TicketShop.Web.Data {
             builder.Entity<TicketInOrder>()
                 .HasOne(z => z.OrderedTicket)
                 .WithMany(z => z.TicketsInOrder)
-                .HasForeignKey(z => z.OrderId);
+                .HasForeignKey(z => z.TicketId);
 
             builder.Entity<TicketInOrder>()
                 .HasOne(z => z.UserOrder)
                 .WithMany(z => z.TicketsInOrder)
-                .HasForeignKey(z => z.TicketId);
+                .HasForeignKey(z => z.OrderId);
         }
     }
 }
