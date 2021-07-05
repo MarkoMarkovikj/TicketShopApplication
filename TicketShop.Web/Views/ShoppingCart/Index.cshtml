@@ -1,0 +1,58 @@
+﻿@model TicketShop.Domain.DTO.ShoppingCartDTO 
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <div class="row m-5">
+        <a class="btn btn-info" asp-controller="ShoppingCart" asp-action="Order">Order Now!</a>
+    </div>
+
+    <div class="row m-5">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Movie Name</th>
+                    <th scope="col">Movie Genre</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Product Price</th>
+                    <th scope="col">Total price</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.TicketsInShoppingCart.Count; i++) {
+                    var item = Model.TicketsInShoppingCart[i];
+
+                <tr>
+                    <th scope="row">@(i+1)</th>
+                    <td>@item.Ticket.MovieName</td>
+                    <td>@item.Ticket.MovieGenre</td>
+                    <td>@item.Ticket.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Ticket.Price * item.Quantity)</td>
+                    <td>
+                        <a class="btn btn-danger"
+                           asp-route-id="@item.TicketId"
+                           asp-action="DeleteFromShoppingCart">Delete</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="col">Total price:</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">$@Model.TotalPrice</th>
+                    <th scope="col"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+

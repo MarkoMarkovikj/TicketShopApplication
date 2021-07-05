@@ -1,0 +1,43 @@
+﻿@model List<TicketShop.Domain.DomainModels.Ticket>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="m-3">
+            <a class="btn btn-success" asp-controller="Tickets" asp-action="Create">Add new ticket</a>
+        </div>
+    </div>
+
+    @for (int i = 0; i < Model.Count(); i++) {
+        var ticket = Model[i];
+
+        if (i % 4 == 0) {
+            @:<div class="row">
+        }
+
+        <div class="col-md-3 m-4">
+            <div class="card" style="width: 18rem; height: 30rem;">
+                <img src="@ticket.Image" alt="Image for movie" style="height: 50%" class="card-img-top" />
+                <div class="card-body">
+                    <h3 class="card-title">@ticket.MovieName</h3>
+                    <p class="card-text text-black-50">@ticket.MovieGenre</p>
+
+                    <h5>Price: @ticket.Price</h5>
+                </div>
+
+                <div class="card-footer">
+                    <a asp-controller="Tickets" asp-action="AddTicketToCart" asp-route-id="@ticket.Id" class="btn btn-info">Add to cart</a>
+                    <a asp-controller="Tickets" asp-action="Edit" asp-route-id="@ticket.Id" class="btn btn-secondary">Edit</a>
+                </div>
+            </div>
+        </div>
+
+        if (i % 4 == 3){
+            @:</div>
+        }
+    }
+</div>
