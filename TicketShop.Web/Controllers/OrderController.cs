@@ -83,7 +83,7 @@ namespace TicketShop.Web.Controllers {
 
 
             document.Content.Replace("{{OrderNumber}}", result.Id.ToString());
-            document.Content.Replace("{{UserName}}", result.User.UserName);
+            document.Content.Replace("{{Username}}", result.User.UserName);
 
             StringBuilder sb = new StringBuilder();
 
@@ -95,8 +95,8 @@ namespace TicketShop.Web.Controllers {
             }
 
 
-            document.Content.Replace("{{TicketList}}", sb.ToString());
-            document.Content.Replace("{{TotalPrice}}", totalPrice.ToString() + "$");
+            document.Content.Replace("{{Ticket}}", sb.ToString());
+            document.Content.Replace("{{Price}}", totalPrice.ToString() + "$");
 
 
             var stream = new MemoryStream();
